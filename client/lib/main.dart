@@ -1,6 +1,7 @@
 import 'package:client/providers/user_provider.dart';
 import 'package:client/routes/routes.dart';
 import 'package:client/screens/screens.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -34,11 +35,13 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {  
+class _MyAppState extends State<MyApp> {
+  final AuthService authService = AuthService();
 
   @override
-  void initState() {    
-    super.initState();    
+  void initState() {
+    super.initState();
+    authService.getUserData(context);
   }
 
   @override
@@ -58,7 +61,9 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: (settings) => RouteManager.routeController(settings),
-      home: const SignUpScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const HomeScreen()
+          : const SignUpScreen(),
     );
   }
 }
