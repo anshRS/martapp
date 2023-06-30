@@ -6,6 +6,7 @@ class RouteManager {
   // Route Names
   static const String signupScreen = '/signupScreen';
   static const String loginScreen = '/loginScreen';
+  static const String homeScreen = '/homeScreen';
 
   // Control our screen route flow
   static Route<dynamic> routeController(RouteSettings settings) {
@@ -19,6 +20,11 @@ class RouteManager {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => const LoginScreen(),
+        );
+      case homeScreen:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => const HomeScreen(),
         );
       default:
         return MaterialPageRoute(
