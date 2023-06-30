@@ -3,6 +3,7 @@ import 'package:client/routes/routes.dart';
 import 'package:client/screens/screens.dart';
 import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
+import 'package:client/widgets/common/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) => RouteManager.routeController(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const HomeScreen()
+          ? const BottomBar()
           : const SignUpScreen(),
     );
   }
