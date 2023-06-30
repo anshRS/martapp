@@ -1,14 +1,45 @@
+import 'package:client/providers/user_provider.dart';
 import 'package:client/routes/routes.dart';
 import 'package:client/screens/screens.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> mainApp() async {
+  await dotenv.load(fileName: ".env");
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+void main() {
+  mainApp();
+}
+// void main() {
+//   runApp(const MyApp());
+// }
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {  
+
+  @override
+  void initState() {    
+    super.initState();    
+  }
 
   @override
   Widget build(BuildContext context) {

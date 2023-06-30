@@ -1,4 +1,5 @@
 import 'package:client/routes/routes.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/widgets/common/custom_button.dart';
 import 'package:client/widgets/common/custom_text_field.dart';
@@ -13,6 +14,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _signUpFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -24,6 +26,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
+  }
+
+  void signUpUser() {
+    authService.signUpUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+      name: _nameController.text,
+    );
   }
 
   @override
@@ -79,7 +90,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomButton(text: 'Sign Up', onTap: () {}),
+                      CustomButton(
+                        text: 'Sign Up',
+                        onTap: () {
+                          if(_signUpFormKey.currentState!.validate()) {
+                            signUpUser();
+                          }                         
+                        },
+                      ),
                       const SizedBox(
                         height: 10,
                       ),

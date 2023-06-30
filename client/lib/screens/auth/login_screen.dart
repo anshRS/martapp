@@ -1,4 +1,5 @@
 import 'package:client/routes/routes.dart';
+import 'package:client/services/auth_service.dart';
 import 'package:client/utils/constants.dart';
 import 'package:client/widgets/common/custom_button.dart';
 import 'package:client/widgets/common/custom_text_field.dart';
@@ -12,7 +13,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _loginInFormKey = GlobalKey<FormState>();
+  final _logInFormKey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -22,6 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void logInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
   }
 
   @override
@@ -50,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               child: Form(
-                  key: _loginInFormKey,
+                  key: _logInFormKey,
                   child: Column(
                     children: [
                       CustomTextField(
@@ -69,7 +79,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomButton(text: 'Sign Up', onTap: () {}),
+                      CustomButton(
+                        text: 'Sign In',
+                        onTap: () {
+                          if(_logInFormKey.currentState!.validate()) {
+                            logInUser();
+                          }  
+                        },
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
