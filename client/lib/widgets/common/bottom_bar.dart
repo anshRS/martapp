@@ -1,3 +1,4 @@
+import 'package:client/screens/account/account_screen.dart';
 import 'package:client/screens/home/home_screen.dart';
 import 'package:client/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,7 @@ class _BottomBarState extends State<BottomBar> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const Center(
-      child: Text('Account Page'),
-    ),
+    const AccountScreen(),
     const Center(
       child: Text('Cart Page'),
     ),
